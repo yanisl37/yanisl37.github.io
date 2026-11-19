@@ -1,0 +1,275 @@
+<title>yns.clips</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Les meilleurs clips : retrouve yns.clips sur TikTok, Instagram et YouTube.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Monoton&family=Mr+Dafoe&family=Chakra+Petch:wght@500;600;700&display=swap">
+<style>
+/* Layout : ciel au coucher de soleil en fond fixe, soleil rayé + palmiers + grille au sol, colonne centrale de 3 cartes néon. Look unique (nuit synthwave). */
+:root {
+  --night: #12061f;
+  --dusk: #3a0f4d;
+  --magenta: #ff2fa8;
+  --sunset: #ff8a3d;
+  --sun-top: #ffd25a;
+  --cyan: #2ff3ff;
+  --ink: #fdf2ff;
+  --muted: #d9b8ea;
+  --card: rgba(24, 6, 40, 0.72);
+  --font-neon: "Monoton", "Impact", system-ui, sans-serif;
+  --font-script: "Mr Dafoe", "Brush Script MT", cursive;
+  --font-ui: "Chakra Petch", "Segoe UI", system-ui, sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { min-height: 100%; }
+body {
+  margin: 0;
+  background: var(--night);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 16px;
+  overflow-x: hidden;
+}
+
+/* ---------- Décor ---------- */
+.scene { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.sky {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, var(--night) 0%, var(--dusk) 38%, #8a1f6e 56%, #e2456f 64%, var(--sunset) 68%, var(--night) 68.2%);
+}
+.stars { position: absolute; inset: 0 0 40% 0; }
+.sun {
+  position: absolute; left: 50%; bottom: 32%;
+  width: min(78vw, 440px); aspect-ratio: 1; max-width: 100%;
+  transform: translate(-50%, 50%);
+  border-radius: 50%;
+  background: linear-gradient(180deg, var(--sun-top) 0%, var(--sunset) 45%, var(--magenta) 85%);
+  box-shadow: 0 0 80px rgba(255, 90, 140, .55), 0 0 160px rgba(255, 47, 168, .35);
+  -webkit-mask: repeating-linear-gradient(180deg, #000 0 52%, transparent 52% 54%, #000 54% 58%, transparent 58% 61%, #000 61% 65%, transparent 65% 69%, #000 69% 72%, transparent 72% 77%, #000 77% 80%, transparent 80% 86%, #000 86% 100%);
+          mask: linear-gradient(180deg, #000 0 52%, transparent 52% 54%, #000 54% 58%, transparent 58% 61%, #000 61% 65%, transparent 65% 69%, #000 69% 72%, transparent 72% 77%, #000 77% 80%, transparent 80% 86%, #000 86% 100%);
+}
+.skyline { position: absolute; left: 0; right: 0; bottom: 32%; width: 100%; height: 12vh; }
+.floor {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 32%;
+  background: linear-gradient(180deg, #2a0838 0%, var(--night) 100%);
+  perspective: 260px; overflow: hidden;
+}
+.floor::before {
+  content: ""; position: absolute; left: -50%; right: -50%; top: 0; height: 200%;
+  background-image:
+    linear-gradient(90deg, rgba(255, 47, 168, .75) 2px, transparent 2px),
+    linear-gradient(0deg, rgba(255, 47, 168, .75) 2px, transparent 2px);
+  background-size: 60px 60px;
+  transform: rotateX(68deg); transform-origin: top center;
+  animation: drive 1.6s linear infinite;
+}
+.floor::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(255, 47, 168, .5) 0, transparent 6px, transparent 40%, var(--night) 100%);
+}
+@keyframes drive { to { background-position: 0 60px, 0 60px; } }
+.palm { position: absolute; bottom: 24%; height: 62vh; max-height: 560px; width: auto; filter: drop-shadow(0 0 10px rgba(47, 243, 255, .35)); }
+.palm.left { left: -4vw; }
+.palm.right { right: -6vw; transform: scaleX(-1); height: 52vh; }
+.palm.small { left: 14vw; height: 34vh; bottom: 27%; opacity: .85; }
+.scene::after { /* lignes de balayage VHS */
+  content: ""; position: absolute; inset: 0;
+  background: repeating-linear-gradient(0deg, rgba(0,0,0,.18) 0 1px, transparent 1px 3px);
+  mix-blend-mode: multiply;
+}
+
+/* ---------- Contenu ---------- */
+.page {
+  position: relative; z-index: 1;
+  min-height: 100vh;
+  display: flex; flex-direction: column; align-items: center; gap: 28px;
+  padding-block: 48px 40px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+header { text-align: center; display: grid; gap: 4px; justify-items: center; }
+.avatar {
+  width: 92px; height: 92px; border-radius: 50%;
+  background: linear-gradient(180deg, var(--night) 0 30%, var(--dusk) 45%, var(--magenta) 62%, var(--sunset) 74%, var(--night) 74.5%);
+  border: 2px solid var(--cyan);
+  box-shadow: 0 0 14px var(--cyan), inset 0 0 12px rgba(47,243,255,.4);
+  position: relative; overflow: hidden; margin-bottom: 10px;
+}
+.avatar::before {
+  content: ""; position: absolute; left: 50%; top: 40%; width: 46px; height: 46px; transform: translateX(-50%);
+  border-radius: 50%;
+  background: linear-gradient(180deg, var(--sun-top), var(--magenta));
+  -webkit-mask: linear-gradient(180deg, #000 0 55%, transparent 55% 62%, #000 62% 70%, transparent 70% 78%, #000 78%);
+          mask: linear-gradient(180deg, #000 0 55%, transparent 55% 62%, #000 62% 70%, transparent 70% 78%, #000 78%);
+}
+.avatar::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 26%;
+  background-image: linear-gradient(90deg, rgba(255,47,168,.8) 1px, transparent 1px), linear-gradient(0deg, rgba(255,47,168,.8) 1px, transparent 1px);
+  background-size: 10px 6px;
+}
+h1 {
+  margin: 0;
+  font-family: var(--font-neon); font-weight: 400;
+  font-size: clamp(2.4rem, 11vw, 4.2rem); line-height: 1.05; letter-spacing: .02em;
+  color: #fff;
+  text-shadow: 0 0 6px #fff, 0 0 14px var(--magenta), 0 0 28px var(--magenta), 0 0 48px var(--magenta);
+  animation: flicker 6s infinite;
+}
+.tag {
+  font-family: var(--font-script); font-size: clamp(1.8rem, 7vw, 2.4rem);
+  color: var(--cyan); transform: rotate(-4deg); margin-top: -4px;
+  text-shadow: 0 0 8px var(--cyan), 0 0 20px rgba(47,243,255,.6);
+}
+.sub { margin: 6px 0 0; color: var(--muted); font-size: .95rem; letter-spacing: .14em; text-transform: uppercase; text-shadow: 0 1px 6px #000; }
+@keyframes flicker {
+  0%, 18%, 22%, 62%, 64%, 100% { opacity: 1; }
+  20%, 63% { opacity: .55; }
+}
+
+.links { width: 100%; max-width: 440px; display: grid; gap: 18px; list-style: none; margin: 0; padding: 0; }
+.card {
+  --glow: var(--magenta);
+  display: grid; grid-template-columns: 56px 1fr 24px; align-items: center; gap: 16px;
+  padding: 18px 18px 18px 16px;
+  min-height: 92px;
+  background: var(--card);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  border: 2px solid var(--glow);
+  border-radius: 6px;
+  color: var(--ink); text-decoration: none;
+  box-shadow: 0 0 10px var(--glow), inset 0 0 18px color-mix(in srgb, var(--glow) 30%, transparent);
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+  position: relative;
+}
+.card.tiktok { --glow: var(--cyan); }
+.card.insta { --glow: var(--magenta); }
+.card.yt { --glow: var(--sunset); }
+.card:hover, .card:focus-visible {
+  transform: translateY(-3px) scale(1.015);
+  background: rgba(40, 10, 62, .85);
+  box-shadow: 0 0 18px var(--glow), 0 0 42px var(--glow), inset 0 0 24px color-mix(in srgb, var(--glow) 40%, transparent);
+  outline: none;
+}
+.card:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
+.icon {
+  width: 56px; height: 56px; border-radius: 50%;
+  display: grid; place-items: center;
+  border: 2px solid var(--glow); color: var(--glow);
+  box-shadow: 0 0 10px var(--glow);
+}
+.icon svg { width: 28px; height: 28px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 4px currentColor); }
+.txt { min-width: 0; display: grid; gap: 2px; }
+.platform { font-weight: 700; font-size: 1.2rem; letter-spacing: .08em; text-transform: uppercase; color: var(--glow); text-shadow: 0 0 8px var(--glow); }
+.handle { font-weight: 600; font-size: 1.05rem; overflow-wrap: anywhere; }
+.what { font-size: .85rem; color: var(--muted); }
+.arrow { width: 24px; height: 24px; stroke: var(--glow); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; transition: transform .18s ease; }
+.card:hover .arrow { transform: translateX(4px); }
+
+footer { margin-top: auto; font-size: .78rem; letter-spacing: .12em; color: var(--muted); text-transform: uppercase; text-align: center; text-shadow: 0 1px 4px #000; }
+
+@media (max-width: 420px) {
+  .card { grid-template-columns: 48px 1fr 20px; gap: 12px; padding: 14px 14px 14px 12px; }
+  .icon { width: 48px; height: 48px; }
+  .palm.small { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .floor::before, h1 { animation: none; }
+  .card, .arrow { transition: none; }
+}
+</style>
+
+<div class="scene" aria-hidden="true">
+  <div class="sky"></div>
+  <canvas class="stars" id="stars"></canvas>
+  <div class="sun"></div>
+  <svg class="skyline" viewBox="0 0 400 60" preserveAspectRatio="none">
+    <path fill="#1a0629" d="M0 60V44h14V30h10v14h8V22h12v22h6V36h10v8h10V14h4V8h4v6h4v30h10V34h12v10h8V26h14v18h10V40h40V30h8v14h12V20h6v-6h6v6h6v24h10V36h14v8h8V28h12v16h10V38h12v6h14V24h10v20h10V34h12v10h16V30h10v14h10v16z"/>
+  </svg>
+  <svg class="palm left" viewBox="0 0 200 400"><g fill="#0b0314">
+    <path d="M96 400c-4-90 2-180 22-250l8 2c-18 70-22 160-18 248z"/>
+    <path d="M120 150c-30-30-80-36-118-20 40-4 80 8 112 30z"/>
+    <path d="M120 150c-10-40-50-70-96-74 40 14 72 42 90 80z"/>
+    <path d="M122 150c10-44 46-74 78-80-30 16-56 48-70 86z"/>
+    <path d="M122 152c34-22 70-22 78-10-28-8-54 0-74 18z"/>
+    <path d="M118 152c-24 4-58 30-66 70 16-30 40-52 70-62z"/>
+    <path d="M124 152c26 8 50 40 52 78-10-32-30-56-56-68z"/>
+    <circle cx="118" cy="156" r="6"/><circle cx="128" cy="158" r="5"/>
+  </g></svg>
+  <svg class="palm small" viewBox="0 0 200 400"><g fill="#0b0314">
+    <path d="M96 400c-4-90 2-180 22-250l8 2c-18 70-22 160-18 248z"/>
+    <path d="M120 150c-30-30-80-36-118-20 40-4 80 8 112 30z"/>
+    <path d="M120 150c-10-40-50-70-96-74 40 14 72 42 90 80z"/>
+    <path d="M122 150c10-44 46-74 78-80-30 16-56 48-70 86z"/>
+    <path d="M118 152c-24 4-58 30-66 70 16-30 40-52 70-62z"/>
+    <path d="M124 152c26 8 50 40 52 78-10-32-30-56-56-68z"/>
+  </g></svg>
+  <svg class="palm right" viewBox="0 0 200 400"><g fill="#0b0314">
+    <path d="M96 400c-4-90 2-180 22-250l8 2c-18 70-22 160-18 248z"/>
+    <path d="M120 150c-30-30-80-36-118-20 40-4 80 8 112 30z"/>
+    <path d="M120 150c-10-40-50-70-96-74 40 14 72 42 90 80z"/>
+    <path d="M122 150c10-44 46-74 78-80-30 16-56 48-70 86z"/>
+    <path d="M122 152c34-22 70-22 78-10-28-8-54 0-74 18z"/>
+    <path d="M118 152c-24 4-58 30-66 70 16-30 40-52 70-62z"/>
+    <path d="M124 152c26 8 50 40 52 78-10-32-30-56-56-68z"/>
+    <circle cx="118" cy="156" r="6"/>
+  </g></svg>
+  <div class="floor"></div>
+</div>
+
+<main class="page">
+  <header>
+    <div class="avatar" aria-hidden="true"></div>
+    <h1>yns.clips</h1>
+    <div class="tag">Night Drive</div>
+    <p class="sub">Les meilleurs clips</p>
+  </header>
+
+  <ul class="links">
+    <li>
+      <a class="card tiktok" href="https://www.tiktok.com/@yns.clips" target="_blank" rel="noopener">
+        <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.5 2.6 2.4 4.4 5 4.6"/></svg></span>
+        <span class="txt"><span class="platform">TikTok</span><span class="handle">@yns.clips</span></span>
+        <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </li>
+    <li>
+      <a class="card insta" href="https://www.instagram.com/yns.clips_/" target="_blank" rel="noopener">
+        <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6" fill="currentColor"/></svg></span>
+        <span class="txt"><span class="platform">Instagram</span><span class="handle">@yns.clips_</span></span>
+        <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </li>
+    <li>
+      <a class="card yt" href="https://www.youtube.com/@yns_clips" target="_blank" rel="noopener">
+        <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10 9.2v5.6l4.8-2.8z" fill="currentColor"/></svg></span>
+        <span class="txt"><span class="platform">YouTube</span><span class="handle">@yns_clips</span></span>
+        <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </li>
+  </ul>
+
+  <footer>yns.clips · fan content · divertissement</footer>
+</main>
+
+<script>
+(function () {
+  var c = document.getElementById('stars');
+  if (!c || !c.getContext) return;
+  var ctx = c.getContext('2d');
+  function draw() {
+    var w = c.clientWidth, h = c.clientHeight, d = window.devicePixelRatio || 1;
+    c.width = w * d; c.height = h * d; ctx.scale(d, d);
+    var n = Math.round(w * h / 2600), seed = 7;
+    function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+    for (var i = 0; i < n; i++) {
+      var x = rnd() * w, y = rnd() * h * .9, r = rnd() * 1.3 + .2;
+      ctx.globalAlpha = (1 - y / h) * (.4 + rnd() * .6);
+      ctx.fillStyle = rnd() > .85 ? '#2ff3ff' : '#ffffff';
+      ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+    }
+  }
+  draw();
+  var t; window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(draw, 150); });
+})();
+</script>
